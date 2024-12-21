@@ -1,3 +1,11 @@
+variables:
+  IMAGE_NAME: nitesh8011/gitlab
+  IMAGE_TAG: latest
+
+stages:
+  - test
+  - build
+
 run_tests:
   stage: test
   image: python:3.9-slim-buster
@@ -7,3 +15,16 @@ run_tests:
     - source src/.venv/bin/activate && pytest -v
   script:
   - make test
+
+build_image:
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  variables:
+    DOCKER_TLS_CERTDIR: '/certs'
+  before_script:
+    - docker login -u $DOCKER_USER -p $DOCKER_TOKEN
+  script:
+    - docker build . -t $IMAGE_NAME:$IMAGE_TAG
+    - docker push $IMAGE_NAME:$IMAGE_TAG
