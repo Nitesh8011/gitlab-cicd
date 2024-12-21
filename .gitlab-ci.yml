@@ -36,7 +36,7 @@ run_tests:
 sonar_scanner:
   stage: sonar_scan
   image:
-    name: sonarsource/sonar-scanner-cli:latest
+    name: python:3.9-slim-buster
     entrypoint: [""]
   cache:
     key: "${CI_JOB_NAME}"
