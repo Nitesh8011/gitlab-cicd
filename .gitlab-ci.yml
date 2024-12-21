@@ -19,9 +19,9 @@ run_tests:
   before_script:
     - python3 -m venv .venv
     - source .venv/bin/activate
+    - pip install --upgrade pip
     - pip install -r src/requirements.txt
     - pip install --upgrade Flask pytest
-    - pip install pytest pytest-cov
   script:
     - source src/.venv/bin/activate
     - pytest --cov=src --cov-report=xml
