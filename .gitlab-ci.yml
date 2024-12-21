@@ -36,18 +36,12 @@ run_tests:
 sonar_scanner:
   stage: sonar_scan
   image:
-    name: python:3.9-slim-buster
+    name: sonarsource/sonar-scanner-cli:latest
     entrypoint: [""]
   cache:
     key: "${CI_JOB_NAME}"
     paths:
       - .sonar/cache
-  before_script:
-    - apt-get update && apt-get install -y wget unzip
-    - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip
-    - unzip sonar-scanner-cli-4.7.0.2747-linux.zip
-    - mv sonar-scanner-4.7.0.2747-linux /opt/sonar-scanner
-    - export PATH=$PATH:/opt/sonar-scanner/bin
   script:
     - sonar-scanner \
         -Dsonar.host.url=$SONAR_HOST_URL \
