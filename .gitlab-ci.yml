@@ -19,7 +19,7 @@ run_tests:
     - pip install -r src/requirements.txt
     # - pip install pytest pytest-cov
   script:
-    - pytest --cov=src --cov-report=xml
+    - pytest --cov=src --cov-report=xml:coverage.xml
   artifacts:
     paths:
       - coverage.xml
