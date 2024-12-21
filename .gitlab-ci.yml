@@ -2,6 +2,7 @@ run_tests:
   stage: test
   image: python:3.9-slim-buster
   before_script:
+    - pip install src/requirements.txt
     - apt-get update && apt-get -y install make git
     - source src/.venv/bin/activate && pytest -v
   script:
