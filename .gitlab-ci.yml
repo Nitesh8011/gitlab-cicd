@@ -43,10 +43,7 @@ sonar_scanner:
     paths:
       - .sonar/cache
   script:
-    - sonar-scanner \
-        -Dsonar.host.url=$SONAR_HOST_URL \
-        -Dsonar.login=$SONAR_TOKEN \
-        -Dsonar.python.coverage.reportPaths=coverage.xml
+    - sonar-scanner
   only:
     - merge_requests
     - main
