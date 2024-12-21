@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV /home/nitesh/Documents/Git/personal/gitlab-cicd/src/.venv
+set -gx VIRTUAL_ENV /home/nitesh/Documents/Git/personal/personal_project/src/.venv
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/"bin $PATH
