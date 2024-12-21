@@ -19,7 +19,8 @@ run_tests:
   script:
   - make test
 
-sonar_scan:
+sonar_scanner:
+  stage: sonar_scan
   image:
     name: sonarsource/sonar-scanner-cli:latest
     entrypoint: [""]
