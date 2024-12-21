@@ -2,7 +2,7 @@ run_tests:
   stage: test
   image: python:3.9-slim-buster
   before_script:
-    - pip install -r src/requirements.txt
+    - pip install -r src/requirements.txt && pip install --upgrade Flask pytest
     - apt-get update && apt-get -y install make git
     - source src/.venv/bin/activate && pytest -v
   script:
