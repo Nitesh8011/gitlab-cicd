@@ -3,8 +3,6 @@ variables:
   IMAGE_TAG: resources_usage
   SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
   GIT_DEPTH: "0"
-  SONAR_PROJECT_KEY: personal2402551_personal_project
-  SONAR_ORGANIZATION: personal2402551
 
 stages:
   - test
@@ -46,8 +44,6 @@ sonar_scanner:
       - .sonar/cache
   script:
     - sonar-scanner \
-        -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
-        -Dsonar.organization=${SONAR_ORGANIZATION} \
         -Dsonar.host.url=$SONAR_HOST_URL \
         -Dsonar.login=$SONAR_TOKEN \
         -Dsonar.python.coverage.reportPaths=coverage.xml
