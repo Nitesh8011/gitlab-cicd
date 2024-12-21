@@ -11,13 +11,20 @@ stages:
 
 run_tests:
   stage: test
-  image: python:3.9-slim-buster
-  before_script:
-    - pip install -r src/requirements.txt && pip install --upgrade Flask pytest
-    - apt-get update && apt-get -y install make git
-    - source src/.venv/bin/activate && pytest -v
   script:
-  - make test
+    - source .venv/bin/activate
+    - pytest --cov=src --cov-report=xml
+  artifacts:
+    paths:
+      - coverage.xml
+    expire_in: 1 day
+  # image: python:3.9-slim-buster
+  # before_script:
+  #   - pip install -r src/requirements.txt && pip install --upgrade Flask pytest
+  #   - apt-get update && apt-get -y install make git
+  #   - source src/.venv/bin/activate && pytest -v
+  # script:
+  # - make test
 
 sonar_scanner:
   stage: sonar_scan
@@ -33,7 +40,7 @@ sonar_scanner:
   only:
     - merge_requests
     - main
-    - develop
+    - feature/stage-added
 
 build_image:
   stage: build
