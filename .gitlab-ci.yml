@@ -1,6 +1,6 @@
 variables:
   IMAGE_NAME: nitesh8011/gitlab
-  IMAGE_TAG: latest
+  IMAGE_TAG: resources_usage
 
 stages:
   - test
