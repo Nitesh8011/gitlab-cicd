@@ -11,6 +11,7 @@ stages:
 
 run_tests:
   stage: test
+  image: python:3.9-slim-buster
   script:
     - source .venv/bin/activate
     - pytest --cov=src --cov-report=xml
