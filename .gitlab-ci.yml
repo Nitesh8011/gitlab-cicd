@@ -17,21 +17,14 @@ run_tests:
     - source .venv/bin/activate
     - pip install --upgrade pip
     - pip install -r src/requirements.txt
-    # - pip install pytest pytest-cov
+    - pip install coverage pytest pytest-cov
   script:
-    - pytest --cov=src --cov-report=xml:coverage.xml
+    - coverage run -m pytest
+    - coverage xml -o coverage.xml
   artifacts:
     paths:
       - coverage.xml
     expire_in: 1 day
-
-  # image: python:3.9-slim-buster
-  # before_script:
-  #   - pip install -r src/requirements.txt && pip install --upgrade Flask pytest
-  #   - apt-get update && apt-get -y install make git
-  #   - source src/.venv/bin/activate && pytest -v
-  # script:
-  # - make test
 
 sonar_scanner:
   stage: sonar_scan
@@ -48,6 +41,7 @@ sonar_scanner:
     - merge_requests
     - main
     - feature/stage-added
+
 
 build_image:
   stage: build
