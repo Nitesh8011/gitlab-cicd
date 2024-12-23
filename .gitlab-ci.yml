@@ -13,11 +13,29 @@ run_tests:
   stage: test
   image: python:3.9-slim-buster
   before_script:
-    - pip install -r src/requirements.txt && pip install --upgrade Flask pytest
-    - apt-get update && apt-get -y install make git
-    - source src/.venv/bin/activate && pytest -v
+    - python3 -m venv .venv
+    - source .venv/bin/activate
+    - pip install --upgrade pip
+    - pip install -r src/requirements.txt
+    - pip install coverage pytest pytest-cov
   script:
-  - make test
+    # - pytest --cov=src --cov-report=xml
+    - pytest --cov=src --cov-report=xml:coverage.xml
+  artifacts:
+    paths:
+      - coverage.xml
+    expire_in: 1 day
+
+# run_tests:
+#   stage: test
+#   image: python:3.9-slim-buster
+#   before_script:
+#     - pip install -r src/requirements.txt && pip install --upgrade Flask pytest
+#     - apt-get update && apt-get -y install make git
+#     - source src/.venv/bin/activate && pytest -v
+#   script:
+#   - make test
+
 
 sonar_scanner:
   stage: sonar_scan
@@ -33,7 +51,8 @@ sonar_scanner:
   only:
     - merge_requests
     - main
-    - develop
+    - feature/stage-added
+
 
 build_image:
   stage: build
@@ -43,7 +62,7 @@ build_image:
   variables:
     DOCKER_TLS_CERTDIR: '/certs'
   before_script:
-    - docker login -u $DOCKER_USER -p $DOCKER_TOKEN
+    - docker login --username $DOCKER_USER --password $DOCKER_TOKEN
   script:
     - docker build . -t $IMAGE_NAME:$IMAGE_TAG
     - docker push $IMAGE_NAME:$IMAGE_TAG
